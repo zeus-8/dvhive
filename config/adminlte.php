@@ -305,7 +305,7 @@ return [
         ['header' => 'MANTENIMIENTO'],
         [
             'text' => 'Control de Estudio',
-            'url'  => 'mantenimiento',
+            'url'  => 'maintenance',
             'icon' => 'fa-regular fa-pencil',
         ],
         ['header' => 'INCIDENCIA'],

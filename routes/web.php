@@ -35,19 +35,23 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     })->name('dashboard');
 });*/
 Route::get(
-    'mantenimiento',
+    'maintenance',
     [MaintenanceController::class, 'index']
-)->name('mantenimiento');
+)->name('maintenance');
 
-Route::get(
-    'findStudent',
+Route::post(
+    'maintenance/find',
     [MaintenanceController::class, 'findStudent']
-)->name('findStudent');
+)->name('maintenance/findStudent');
 
 Route::get(
-    'editStudent',
+    'maintenance/update',
     [MaintenanceController::class, 'editStudent']
-)->name('editStudent');
+)->name('maintenance/updateStudent');
+
+
+
+
 
 Route::get('/incidencia', function () {
     return view('dvhive.incidencia.index');

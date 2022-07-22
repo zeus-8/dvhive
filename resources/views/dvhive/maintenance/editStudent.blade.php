@@ -27,37 +27,24 @@
                         <div class="col-md-3">
                             <div class="form-group has-feedback">
                                 {!! Form::label('Nombre') !!}
-                                {!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'Nombre']) !!}
+                                {!! Form::text('name', null, ['class'=>'form-control', 'disabled', 'placeholder'=>'Nombre']) !!}
                                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group has-feedback">
                                 {!! Form::label('Apellido') !!}
-                                {!! Form::text('surname', null, ['class'=>'form-control', 'placeholder'=>'Apellido']) !!}
+                                {!! Form::text('surname', null, ['class'=>'form-control', 'disabled', 'placeholder'=>'Apellido']) !!}
                                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group has-feedback">
                                 {!! Form::label('Email') !!}
-                                {!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'Email']) !!}
+                                {!! Form::text('email', null, ['class'=>'form-control', 'disabled', 'placeholder'=>'Email']) !!}
                                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                             </div>
                         </div>
-                        {{--
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">CARRERA</label>
-                                <select class="form-control select2bs4" style="width: 100%;">
-                                    <option value="0">-- Seleccione --</option>
-                                    @foreach ($careers as $career)
-                                        <option @if ($user->id_career == $career->id ) selected="selected" @endif  value="{{ $career->id }}">{{ $career->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        --}}
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">AÑO</label>
@@ -66,28 +53,45 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">PERIODO DE INICIO</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Año" value="{{ $user->period_year }}">
+                                <label for="exampleInputEmail1">INICIO</label>
+                                <select class="form-control select2bs4" style="width: 100%;">
+                                <option value="0"> BAJA</option>
+                                <option value="1"> 1° CUATRIMESTRE</option>
+                                <option value="2"> 2° CUATRIMESTRE</option>
+                        {{--
+                                    <option value="0">-- Seleccione --</option>
+                                    @foreach ($careers as $career)
+                                        <option @if ($user->id_career == $career->id ) selected="selected" @endif  value="{{ $career->id }}">{{ $career->name }}</option>
+                                    @endforeach
+                        --}}
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">TURNO</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="">
+                                <select class="form-control select2bs4" style="width: 100%;">
+                                <option value="1"> MAÑANA</option>
+                                <option value="2"> TARDE</option>
+                                <option value="3"> NOCHE</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                       <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">MODALIDAD</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="">
+                                <select class="form-control select2bs4" style="width: 100%;">
+                                <option value="0"> PRESENCIAL</option>
+                                <option value="1"> VIRTUAL</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-4 offset-md-8">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6"><br>
                                     <button type="button" class="btn btn-block btn-outline-success btn-lg">Modificar</button>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6"><br>
                                     <a href="{{ route('maintenance') }}" class="btn btn-block btn-outline-danger btn-lg">Cancelar</a>
                                 </div>
                             </div>

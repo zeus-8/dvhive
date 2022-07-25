@@ -13,46 +13,43 @@ use App\Http\Controllers\maintenance\MaintenanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('auth.login');
-});
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
-
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::get('/dash', function () {
-        return view('dvhive.dash.index');
-    })->name('dash');
-});
-/*
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});*/
-Route::get(
-    'maintenance',
-    [MaintenanceController::class, 'index']
-)->name('maintenance');
-
-Route::post(
-    'maintenance/find',
-    [MaintenanceController::class, 'findStudent']
-)->name('maintenance/findStudent');
-
-Route::get(
-    'maintenance/update',
-    [MaintenanceController::class, 'editStudent']
-)->name('maintenance/updateStudent');
-
-
-
-
-
-Route::get('/incidencia', function () {
-    return view('dvhive.incidencia.index');
-});
+$op = 1;
+if ($op == 0) {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+    });
+} else {
+    Route::get('/', function () {
+        return view('auth.login');
+    });
+    
+    Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+        Route::get('/dash', function () {
+            return view('dvhive.dash.index');
+        })->name('dash');
+    });
+    
+    Route::get(
+        'maintenance',
+        [MaintenanceController::class, 'index']
+    )->name('maintenance');
+    
+    Route::post(
+        'maintenance/find',
+        [MaintenanceController::class, 'findStudent']
+    )->name('maintenance/findStudent');
+    
+    Route::put(
+        'maintenance/update',
+        [MaintenanceController::class, 'updateStudent']
+    )->name('maintenance/updateStudent');
+    
+    Route::get('/incidencia', function () {
+        return view('dvhive.incidencia.index');
+    });
+}

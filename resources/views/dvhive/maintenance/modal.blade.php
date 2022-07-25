@@ -35,7 +35,7 @@
                                                         
                                                     </td>
                                                     <td>
-                                                        {{ $user->id_career }}
+                                                        {{ $user->career }}
                                                     </td>
                                                     <td>
                                                         <input type="radio" id="radioPrimary1" name="career" value="{{ $user->id_career }}">

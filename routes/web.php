@@ -48,6 +48,11 @@ if ($op == 0) {
         'maintenance/update',
         [MaintenanceController::class, 'updateStudent']
     )->name('maintenance/updateStudent');
+
+    Route::post(
+        'maintenance/rollBackIncidence',
+        [MaintenanceController::class, 'rollBackIncidence']
+    )->name('maintenance/rollBack');
     
     Route::get('/incidencia', function () {
         return view('dvhive.incidencia.index');

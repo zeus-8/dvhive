@@ -19,7 +19,15 @@ class MaintenanceController extends Controller
      */
     public function index(){
        
-        $incidence = StudentIncidence::all();
+        $incidence = StudentIncidence::where('status','=', 0)->orderBy('id', 'desc')->get();
+        /** HACER EL QUERY ENTRE DOS BASES DE DATOS */
+        /*$incidence = DB::table('student_incidence as local')
+                            ->join('think.careers as foranea ', 'foranea.id', '=', 'local.id_career')
+                            ->select(['local.id', 'local.id_person', 'foranea.name as alumno', 'local.observacion'])
+                            //->where('')
+                            //->get();
+                            ->dd();
+        //dd($incidence);*/
         $modal = 0;
         $resu = 0;
         return view('dvhive.maintenance.maintenance', compact('modal', 'resu', 'incidence'));
@@ -84,7 +92,7 @@ class MaintenanceController extends Controller
                                                 'new_period_year' => $request->anio,
                                                 'new_period_init' => $request->inicio,
                                                 'new_is_online' => $request->modalidad,
-                                                'observacion' => $observacion,
+                                                'observacion' => strtoupper($observacion),
                                                 'user' => auth()->user()->name 
                                             ]);
                         
@@ -119,5 +127,42 @@ class MaintenanceController extends Controller
         return redirect()->route('maintenance');
         
         
+    }
+    public function rollBackIncidence(Request $request){
+        
+        $observacion = 'SE REALIZA ROLLBACK '.auth()->user()->name ;
+        $incidence = StudentIncidence::where('id', '=', $request['id'])->first();
+        
+        $intanceNew = StudentIncidence::create([
+            'id_person'     => $incidence['id_person'],
+            'id_career' => $incidence['id_career'],
+            'old_turn'  => $incidence['new_turn'],
+            'old_period_year' => $incidence['new_period_year'],
+            'old_period_init' => $incidence['new_period_init'],
+            'old_is_online' => $incidence['new_is_online'],
+            'new_turn'   => $incidence['old_turn'],
+            'new_period_year' => $incidence['old_period_year'],
+            'new_period_init' => $incidence['old_period_init'],
+            'new_is_online' => $incidence['old_is_online'],
+            'observacion' => strtoupper($observacion),
+            'user' => auth()->user()->name 
+        ]);
+
+        StudentIncidence::where('id', $incidence->id)
+            ->update(['status' => 1]);
+        
+        DB::connection('think_ed')
+                ->table('persons_careers')
+                ->where('id_person', '=', $intanceNew->id_person)
+                ->where('id_career', '=', $intanceNew->id_career)
+                ->update([
+                    'id_turn'   => $intanceNew->new_turn,  
+                    'period_year' => $intanceNew->new_period_year,
+                    'period_init' => $intanceNew->new_period_init,
+                    'is_online' => (int)$intanceNew->new_is_online
+                ]);
+       
+
+        return redirect()->route('maintenance');
     }
 }

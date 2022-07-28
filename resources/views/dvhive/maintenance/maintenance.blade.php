@@ -54,15 +54,16 @@
                                 <tbody>
                                     @foreach ($incidence as $in  )
                                         <tr>
-                                            <td>{{ $in->id }}</td>
+                                            <td id="id">{{ $in->id }}</td>
                                             <td>{{ $in->id_person }}</td>
                                             <td>{{ $in->id_career }}</td>
                                             <td>name</td>
                                             <td>{{ $in->observacion }}</td>
                                             <td>{{ $in->user }}</td>
                                             <td>
-                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-primary">Action</button>
+                                            <!--
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary">Accion</button>
                                                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
                                                         <span class="sr-only">Toggle Dropdown</span>
                                                     </button>
@@ -74,6 +75,14 @@
                                                         <a class="dropdown-item" href="#">Separated link</a>
                                                     </div>
                                                 </div>
+                                            -->
+                                            {!! Form::open(['url' => 'maintenance/rollBackIncidence']) !!}
+                                               @csrf
+                                                {!! Form::hidden('id', $in->id); !!}
+                                                {!! Form::submit('Rollback',['class'=>'btn btn-block btn-outline-danger']) !!}
+                                                
+                                            {!! Form::close() !!}
+                                            {!! Form::submit('Historial',['class'=>'btn btn-block btn-outline-primary']) !!}
                                             </td>
                                             
                                         </tr>
@@ -97,6 +106,7 @@
 @stop
 @if ($modal > 0)
     @section('js')
+        
         <script>
             $('#staticBackdrop').modal('show')
         </script>
